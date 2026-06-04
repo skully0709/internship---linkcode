@@ -13,8 +13,8 @@ while sum != 1:
 		sum = sum + (digit**2)
 		temp = temp//10
 	if sum in l:
-			flag = False
-			break
+		flag = False
+		break
 	else:
 		l.append(sum)
 	temp = sum
