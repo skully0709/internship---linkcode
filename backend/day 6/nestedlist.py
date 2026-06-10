@@ -17,7 +17,7 @@ while ch != 7:
     print("3.Update Element")
     print("4.Delete Element")
     print("5.Search Element")
-    print("6.Buy all")
+    print("6.Buy items")
     print("7.Exit")
     ch = int(input("Enter your choice: "))
 
@@ -33,6 +33,7 @@ while ch != 7:
                 item_name = input("Enter item name: ")
                 item_price = int(input("Enter item price: "))
                 x.append([item_no, item_name, item_price])
+                print("\n------------------------------\n")
 
             print("Items added successfully!")
             view()
@@ -69,8 +70,13 @@ while ch != 7:
                             i[1] = input("Enter new item name: ")
                             i[2] = int(input("Enter new item price: "))
                             print("Item updated successfully!")
-                    break
-            view()
+                            break
+                        else:
+                            print("Invalid Choice! Try again")
+                else:
+                    print("Item not Found")
+                
+                view()
             
         case 4:
             print("\n------------------------------\n")
@@ -98,6 +104,8 @@ while ch != 7:
                         else:
                             print("Item not found!")
                     break
+                else:
+                    print("Item not found")
 
             view()
         case 5:
