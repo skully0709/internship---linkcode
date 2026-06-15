@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart login</title>
+
+    <style>
+        body {
+            background-color: #f1f3f6;
+        }
+
+        #login {
+            background-color: white;
+            margin: 40px auto;
+            height: 500px;
+            width: 850px;
+            box-shadow: 0px 0px 10px lightgray;
+        }
+
+        #half1 {
+            background-color: #2874f0;
+            color: #fff;
+            padding: 50px 0px 0px 35px;
+            width: 290px;
+            height: 450px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        #login-para {
+            color: #dbdbdb;
+            font-size: 17px;
+            line-height: 24px;
+            font-family: sans-serif;
+            margin-top: 25px;
+        }
+
+        #image {
+            width: 220px;
+            margin-top: 150px;
+            margin-left: 15px;
+        }
+
+        #half2 {
+            background-color: white;
+            padding: 50px 0px 0px 40px;
+            width: 470px;
+            height: 450px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        input {
+            width: 420px;
+            border: none;
+            border-bottom: 1px solid #2874f0;
+            padding: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .righttext {
+            color: gray;
+            font-size: 13px;
+            font-family: sans-serif;
+            margin-top: 40px;
+        }
+
+        button {
+            width: 440px;
+            height: 50px;
+            background-color: #fb641b;
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #a {
+            text-align: center;
+            margin-top: 230px;
+            font-family: sans-serif;
+        }
+
+        a {
+            color: #2874f0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body style="font-family: Inter, -apple-system, Helvetica, Arial, sans-serif;">
+
+    <div id="login">
+        <div id="half1">
+            <h1>Login</h1>
+            <p id="login-para">Get access to your Orders,<br> Wishlist and Recommendations</p>
+            <img id="image" src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/login_img_c4a81e.png" alt="Flipkart">
+        </div>
+        
+        <div id="half2">
+            <input type="text" placeholder="Enter Email/Mobile number">
+            
+            <p class="righttext">
+                By continuing, you agree to Flipkart's
+                <a href="">Terms of Use</a> and
+                <a href="">Privacy Policy</a>.
+            </p>
+
+            <button>Request OTP</button>
+            
+            <p id="a">
+                <a href="/account/login?signup=true">New to Flipkart? Create an account</a>
+            </p>
+        </div>
+    </div>
+    
+</body>
+</html>
