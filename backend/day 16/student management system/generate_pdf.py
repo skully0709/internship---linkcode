@@ -17,11 +17,11 @@ def generate_pdf(row, total, percentage, result):
 
     pdf.ln(5)
 
-    pdf.cell(200, 10, txt=f"Marathi Marks : {row[3]}", ln=True)
-    pdf.cell(200, 10, txt=f"English Marks : {row[4]}", ln=True)
-    pdf.cell(200, 10, txt=f"Maths Marks : {row[5]}", ln=True)
-    pdf.cell(200, 10, txt=f"Science Marks : {row[6]}", ln=True)
-    pdf.cell(200, 10, txt=f"Economics Marks : {row[7]}", ln=True)
+    pdf.cell(200, 10, txt=f"DCN Marks : {row[3]}", ln=True)
+    pdf.cell(200, 10, txt=f"JPR Marks : {row[4]}", ln=True)
+    pdf.cell(200, 10, txt=f"MIC Marks : {row[5]}", ln=True)
+    pdf.cell(200, 10, txt=f"PWP Marks : {row[6]}", ln=True)
+    pdf.cell(200, 10, txt=f"UID Marks : {row[7]}", ln=True)
 
     pdf.ln(5)
 
@@ -33,4 +33,4 @@ def generate_pdf(row, total, percentage, result):
 
     pdf.output(filename)
 
-    print(f"PDF generated successfully: {filename}")
+    print(f"PDF Generated Successfully: {filename}")

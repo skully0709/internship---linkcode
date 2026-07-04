@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji</title>
+
+    <style>
+        .emoji {
+            margin: 50px;
+            background-color: rgb(255, 202, 11);
+            border-radius: 50%;
+            height: 500px;
+            width: 500px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            position: relative;
+    
+        }
+
+
+        .emojieyes {
+            position: relative;
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            border-radius: 50%;
+            top:30%;
+            display: flex;
+            justify-self: space-around;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+            animation-name: emojieyes;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+        }
+        .emojieyes:hover {
+            animation-play-state: paused;
+        }
+
+        .eyebrow {
+            position: absolute;
+            height: 20px;
+            width: 100px;
+            background-color: black;
+            border-radius: 50%;
+            top: 20%;
+        }
+
+        #eyebrow1 {
+            
+            left: 20%;
+            transform: rotate(-20deg);
+        }
+
+        #eyebrow2 {
+            right: 20%;
+            transform: rotate(20deg);
+        }
+
+        @keyframes emojieyes {
+            from{
+                transform: rotate(360deg);
+            }
+            to{
+                transform: rotate(0deg);
+            }
+        }
+        .pupil {
+            position: relative;
+            height: 50px;
+            width: 30px;
+            background-color: white;
+            border-radius: 50%;
+            
+        }
+      .mouth {
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            border-radius: 50%;
+            
+            bottom: 75px; 
+            left: 0;
+            right: 0;
+            margin: auto;
+            
+            background-image: linear-gradient(pink, red, black);
+            animation-name: mouth;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+        }
+
+      @keyframes mouth {
+        from{
+            transform: scale(1);
+        }
+        to{
+            transform: rotate(20deg) scale(1.5);
+        }
+      }
+     
+
+    </style>
+</head>
+<body>
+    <div class="emoji">
+
+            <div class="eyebrow" id="eyebrow1"></div>
+            <div class="eyebrow" id="eyebrow2"></div>
+
+            <div class="emojieyes" id="eye1">
+                <div class="pupil"></div>
+            </div>
+
+            <div class="emojieyes" id="eye2">
+                <div class="pupil"></div>
+            </div>
+            
+
+            <div class="mouth"></div>
+    </div>
+    
+</body>
+</html>

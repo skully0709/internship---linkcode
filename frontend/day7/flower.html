@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flower</title>
+    <style>
+        .flower {
+            margin: 50px;
+            border: 1px solid black;
+            height: 300px;
+            width: 300px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: blue;
+            border-radius: 50%;
+
+            animation-name: rotation;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes rotation {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #center {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            border-radius: 50%;
+        }
+        .inside-flower {
+            position: absolute;
+            
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            
+        }
+        #flower1{
+            transform: rotate(18deg)
+
+        }
+        #flower2{
+            transform: rotate(36deg)
+
+        }
+        #flower3{
+            transform: rotate(54deg)
+
+        }
+        #flower4{
+            transform: rotate(72deg)
+
+        }
+    </style>
+</head>
+<body>
+    <div class="flower">
+        <div class="inside-flower" id="flower1"></div>
+        <div class="inside-flower" id="flower2"></div>
+        <div class="inside-flower" id="flower3"></div>
+        <div class="inside-flower" id="flower4"></div>
+        <div id="center"></div>
+    </div>
+    
+</body>
+</html>

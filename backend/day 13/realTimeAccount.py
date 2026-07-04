@@ -1,4 +1,7 @@
 import random
+import time
+
+# add time module for otp generation
 
 class Account:
     def __init__(self,name,username,password):
@@ -17,6 +20,9 @@ class Account:
         if self.username==username and self.__password==pwd:
             otp = random.randint(1000,9999)
             print("Your OTP: ", otp)
+
+
+
             if self.__getOtp(otp):
                 print("Login successful.")
                 self.__setLoginStatus(True)
@@ -28,6 +34,7 @@ class Account:
 
     def __getOtp(self,otp):
         temp = int(input("Enter the Otp: "))
+        
         if temp==otp:
             return True
         else: return False
