@@ -5,7 +5,7 @@ Owner: Shravani
 """
 
 from tabulate import tabulate
-from db_functions import get_connection, log_activity
+from db_functions import get_connection, log_activity, is_medically_ineligible
 
 current_user = None
 
@@ -204,9 +204,17 @@ def update_status():
         case _:
             status = "Adopted"
 
- 
     conn = get_connection()
     cur = conn.cursor()
+
+    if status == "Available":
+        cur.execute("SELECT Health_Status FROM Pets WHERE Pet_ID = ?", (pid,))
+        row = cur.fetchone()
+        if row and is_medically_ineligible(row[0]):
+            conn.close()
+            print(f"This pet is medically ineligible for adoption ({row[0]}). Clear the medical flag before marking it Available.")
+            return
+
     cur.execute("UPDATE Pets SET Adoption_Status = ?, Requested_By = NULL WHERE Pet_ID = ?", (status, pid))
     conn.commit()
     updated = cur.rowcount

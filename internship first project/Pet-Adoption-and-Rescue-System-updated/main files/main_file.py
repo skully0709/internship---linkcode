@@ -10,9 +10,11 @@ Run the system with run.py, not this file.
 from tabulate import tabulate
 
 from db_functions import (
-    get_connection, hash_password, verify_password, is_valid_email,
-    is_valid_phone, is_strong_password, generate_code, send_verification_email,
+    get_connection, hash_password, verify_password, needs_rehash, is_valid_email,
+    is_valid_phone, is_strong_password, is_valid_username, generate_code,
+    send_verification_email, verify_with_otp, get_non_empty_input, pause,
     log_activity, table_name, id_column, find_user, username_or_email_exists,
+    email_exists, username_exists, phone_exists,
 )
 
 from pet_management import pet_management_menu_admin
@@ -36,25 +38,28 @@ def main_menu():
     print("5. Exit")
     choice = input("Select an option: ").strip()
 
-    match choice:
-        case "1":
-            login("adopter")
-            main_menu()
-        case "2":
-            login("admin")
-            main_menu()
-        case "3":
-            register_adopter()
-            main_menu()
-        case "4":
-            role = input("Reset password for (adopter/admin): ").strip().lower()
-            forgot_password(role)
-            main_menu()
-        case "5":
-            print("Goodbye.")
-        case _:
-            print("Invalid option.")
-            main_menu()
+    try:
+        match choice:
+            case "1":
+                login("adopter")
+            case "2":
+                login("admin")
+            case "3":
+                register_adopter()
+            case "4":
+                role = input("Reset password for (adopter/admin): ").strip().lower()
+                forgot_password(role)
+            case "5":
+                print("Goodbye.")
+                return
+            case _:
+                print("Invalid option.")
+    except KeyboardInterrupt:
+        print("\n\nInterrupted. Returning to the main menu...")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+    main_menu()
 
 
 # ---------------------------------------------------------------------
@@ -63,29 +68,45 @@ def main_menu():
 
 def register_adopter():
     print("\n-- Adopter Registration --")
-    full_name = input("Full Name: ").strip()
-    email = input("Email Address: ").strip()
-    phone = input("Phone Number (10 digits): ").strip()
+    full_name = get_non_empty_input("Full Name: ")
+
+    while True:
+        email = get_non_empty_input("Email Address: ")
+        if not is_valid_email(email):
+            print("Invalid email format."); continue
+        if email_exists(email):
+            print("An account with this email already exists."); continue
+        break
+
+    while True:
+        phone = get_non_empty_input("Phone Number (10 digits): ")
+        if not is_valid_phone(phone):
+            print("Invalid phone number. It must be exactly 10 digits."); continue
+        if phone_exists(phone):
+            print("An account with this phone number already exists."); continue
+        break
+
     location = input("Location/Address: ").strip()
-    username = input("Choose a Username: ").strip()
-    password = input("Set a Password: ").strip()
-    confirm = input("Confirm Password: ").strip()
 
-    if not is_valid_email(email):
-        print("Invalid email format."); return
-    if not is_valid_phone(phone):
-        print("Invalid phone number."); return
-    if password != confirm:
-        print("Passwords do not match."); return
-    if not is_strong_password(password):
-        print("Password needs 8+ characters with letters and numbers."); return
-    if username_or_email_exists(username, email):
-        print("Username or email already in use."); return
+    while True:
+        username = get_non_empty_input("Choose a Username: ")
+        if not is_valid_username(username):
+            print("Usernames must be 3-20 characters: letters, numbers, or underscores only."); continue
+        if username_exists(username):
+            print("That username is already taken."); continue
+        break
 
-    code = generate_code()
-    send_verification_email(email, code)
-    entered = input("Enter the verification code: ").strip()
-    if entered != code:
+    while True:
+        password = get_non_empty_input("Set a Password: ")
+        strong, reason = is_strong_password(password)
+        if not strong:
+            print(reason); continue
+        confirm = get_non_empty_input("Confirm Password: ")
+        if password != confirm:
+            print("Passwords do not match."); continue
+        break
+
+    if not verify_with_otp(email):
         print("Verification failed. Registration cancelled."); return
 
     conn = get_connection()
@@ -108,8 +129,8 @@ def register_adopter():
 
 def login(role):
     print(f"\n-- {role.capitalize()} Login --")
-    identifier = input("Username or Email: ").strip()
-    password = input("Password: ").strip()
+    identifier = get_non_empty_input("Username or Email: ")
+    password = get_non_empty_input("Password: ")
 
     user = find_user(identifier, role)
     if not user:
@@ -119,10 +140,16 @@ def login(role):
     if not verify_password(password, user["Password_Hash"]):
         print("Incorrect password."); return
 
-    code = generate_code()
-    send_verification_email(user["Email"], code)
-    entered = input("Enter the verification code: ").strip()
-    if entered != code:
+    if needs_rehash(user["Password_Hash"]):
+        new_hash = hash_password(password)
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute(f"UPDATE {table_name(role)} SET Password_Hash=? WHERE Username=?", (new_hash, user["Username"]))
+        conn.commit()
+        conn.close()
+        user["Password_Hash"] = new_hash
+
+    if not verify_with_otp(user["Email"]):
         print("Verification failed. Login cancelled."); return
 
     log_activity(user["Username"], role, "Logged in")
@@ -153,12 +180,24 @@ def view_profile(user):
 def edit_profile(user, role):
     print("\n-- Edit Profile (leave blank to keep current value) --")
     full_name = input(f"Full Name [{user['Full_Name']}]: ").strip() or user["Full_Name"]
-    email = input(f"Email [{user['Email']}]: ").strip() or user["Email"]
-    phone = input(f"Phone [{user['Phone']}]: ").strip() or user["Phone"]
-    location = input(f"Location [{user.get('Location', '-')}]: ").strip() or user.get("Location", "")
 
-    if not is_valid_email(email) or not is_valid_phone(phone):
-        print("Invalid email or phone. Update cancelled."); return user
+    while True:
+        email = input(f"Email [{user['Email']}]: ").strip() or user["Email"]
+        if not is_valid_email(email):
+            print("Invalid email format."); continue
+        if email != user["Email"] and email_exists(email):
+            print("That email is already in use by another account."); continue
+        break
+
+    while True:
+        phone = input(f"Phone [{user['Phone']}]: ").strip() or user["Phone"]
+        if not is_valid_phone(phone):
+            print("Invalid phone number. It must be exactly 10 digits."); continue
+        if phone != user["Phone"] and phone_exists(phone):
+            print("That phone number is already in use by another account."); continue
+        break
+
+    location = input(f"Location [{user.get('Location', '-')}]: ").strip() or user.get("Location", "")
 
     conn = get_connection()
     cur = conn.cursor()
@@ -186,16 +225,19 @@ def edit_profile(user, role):
 # ---------------------------------------------------------------------
 
 def change_password(user, role):
-    current = input("Current Password: ").strip()
+    current = get_non_empty_input("Current Password: ")
     if not verify_password(current, user["Password_Hash"]):
         print("Current password is incorrect."); return
 
-    new_pw = input("New Password: ").strip()
-    confirm = input("Confirm New Password: ").strip()
-    if new_pw != confirm:
-        print("Passwords do not match."); return
-    if not is_strong_password(new_pw):
-        print("Password needs 8+ characters with letters and numbers."); return
+    while True:
+        new_pw = get_non_empty_input("New Password: ")
+        strong, reason = is_strong_password(new_pw)
+        if not strong:
+            print(reason); continue
+        confirm = get_non_empty_input("Confirm New Password: ")
+        if new_pw != confirm:
+            print("Passwords do not match."); continue
+        break
 
     new_hash = hash_password(new_pw)
     conn = get_connection()
@@ -213,20 +255,23 @@ def change_password(user, role):
 
 
 def forgot_password(role):
-    identifier = input("Enter your registered Username or Email: ").strip()
+    identifier = get_non_empty_input("Enter your registered Username or Email: ")
     user = find_user(identifier, role)
     if not user:
         print("No matching account found."); return
 
-    code = generate_code()
-    send_verification_email(user["Email"], code)
-    entered = input("Enter the verification code: ").strip()
-    if entered != code:
+    if not verify_with_otp(user["Email"]):
         print("Verification failed."); return
 
-    new_pw = input("Enter New Password: ").strip()
-    if not is_strong_password(new_pw):
-        print("Password needs 8+ characters with letters and numbers."); return
+    while True:
+        new_pw = get_non_empty_input("Enter New Password: ")
+        strong, reason = is_strong_password(new_pw)
+        if not strong:
+            print(reason); continue
+        confirm = get_non_empty_input("Confirm New Password: ")
+        if new_pw != confirm:
+            print("Passwords do not match."); continue
+        break
 
     conn = get_connection()
     cur = conn.cursor()
@@ -269,18 +314,38 @@ def elevate_to_admin(admin_user):
 
 def create_admin_directly(admin_user):
     print("\n-- Register New Administrator --")
-    full_name = input("Full Name: ").strip()
-    email = input("Email Address: ").strip()
-    phone = input("Phone Number: ").strip()
-    username = input("Username: ").strip()
-    password = input("Password: ").strip()
+    full_name = get_non_empty_input("Full Name: ")
 
-    if not is_valid_email(email) or not is_valid_phone(phone):
-        print("Invalid email or phone."); return
-    if username_or_email_exists(username, email):
-        print("Username or email already in use."); return
-    if not is_strong_password(password):
-        print("Password needs 8+ characters with letters and numbers."); return
+    while True:
+        email = get_non_empty_input("Email Address: ")
+        if not is_valid_email(email):
+            print("Invalid email format."); continue
+        if email_exists(email):
+            print("An account with this email already exists."); continue
+        break
+
+    while True:
+        phone = get_non_empty_input("Phone Number (10 digits): ")
+        if not is_valid_phone(phone):
+            print("Invalid phone number. It must be exactly 10 digits."); continue
+        if phone_exists(phone):
+            print("An account with this phone number already exists."); continue
+        break
+
+    while True:
+        username = get_non_empty_input("Username: ")
+        if not is_valid_username(username):
+            print("Usernames must be 3-20 characters: letters, numbers, or underscores only."); continue
+        if username_exists(username):
+            print("That username is already taken."); continue
+        break
+
+    while True:
+        password = get_non_empty_input("Password: ")
+        strong, reason = is_strong_password(password)
+        if strong:
+            break
+        print(reason)
 
     conn = get_connection()
     cur = conn.cursor()
@@ -369,19 +434,23 @@ def adopter_dashboard(user):
         print("4. Logout")
         choice = input("Select an option: ").strip()
 
-        match choice:
-            case "1":
-                if adopter_account_menu(user) == "deleted":
+        try:
+            match choice:
+                case "1":
+                    if adopter_account_menu(user) == "deleted":
+                        return
+                case "2":
+                    adopter_pets_menu(user)
+                case "3":
+                    adopter_donation_dashboard(user)
+                case "4":
+                    print("Logged out.")
                     return
-            case "2":
-                adopter_pets_menu(user)
-            case "3":
-                adopter_donation_dashboard(user)
-            case "4":
-                print("Logged out.")
-                return
-            case _:
-                print("Invalid option.")
+                case _:
+                    print("Invalid option.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        pause()
 
 
 def adopter_account_menu(user):
@@ -396,25 +465,29 @@ def adopter_account_menu(user):
         print("7. Back")
         choice = input("Select an option: ").strip()
 
-        match choice:
-            case "1":
-                view_profile(user)
-            case "2":
-                user = edit_profile(user, "adopter")
-            case "3":
-                change_password(user, "adopter")
-            case "4":
-                view_activity_log(user["Username"])
-            case "5":
-                set_account_status(user["Username"], "adopter", "inactive")
-                return "deleted"
-            case "6":
-                if delete_account(user, "adopter"):
+        try:
+            match choice:
+                case "1":
+                    view_profile(user)
+                case "2":
+                    user = edit_profile(user, "adopter")
+                case "3":
+                    change_password(user, "adopter")
+                case "4":
+                    view_activity_log(user["Username"])
+                case "5":
+                    set_account_status(user["Username"], "adopter", "inactive")
                     return "deleted"
-            case "7":
-                return
-            case _:
-                print("Invalid option.")
+                case "6":
+                    if delete_account(user, "adopter"):
+                        return "deleted"
+                case "7":
+                    return
+                case _:
+                    print("Invalid option.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        pause()
 
 
 def adopter_pets_menu(user):
@@ -426,17 +499,21 @@ def adopter_pets_menu(user):
         print("4. Back")
         choice = input("Select an option: ").strip()
 
-        match choice:
-            case "1":
-                search_menu(user)
-            case "2":
-                adopter_vaccination_dashboard(user)
-            case "3":
-                adopter_adoption_dashboard(user)
-            case "4":
-                return
-            case _:
-                print("Invalid option.")
+        try:
+            match choice:
+                case "1":
+                    search_menu(user)
+                case "2":
+                    adopter_vaccination_dashboard(user)
+                case "3":
+                    adopter_adoption_dashboard(user)
+                case "4":
+                    return
+                case _:
+                    print("Invalid option.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        pause()
 
 
 # =======================================================================
@@ -454,22 +531,26 @@ def admin_dashboard(user):
         print("6. Logout")
         choice = input("Select an option: ").strip()
 
-        match choice:
-            case "1":
-                user = admin_account_menu(user)
-            case "2":
-                admin_user_management_menu(user)
-            case "3":
-                admin_pets_menu(user)
-            case "4":
-                admin_donation_dashboard(user)
-            case "5":
-                open_dashboard(user)
-            case "6":
-                print("Logged out.")
-                return
-            case _:
-                print("Invalid option.")
+        try:
+            match choice:
+                case "1":
+                    user = admin_account_menu(user)
+                case "2":
+                    admin_user_management_menu(user)
+                case "3":
+                    admin_pets_menu(user)
+                case "4":
+                    admin_donation_dashboard(user)
+                case "5":
+                    open_dashboard(user)
+                case "6":
+                    print("Logged out.")
+                    return
+                case _:
+                    print("Invalid option.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        pause()
 
 
 def admin_account_menu(user):
@@ -482,19 +563,23 @@ def admin_account_menu(user):
         print("5. Back")
         choice = input("Select an option: ").strip()
 
-        match choice:
-            case "1":
-                view_profile(user)
-            case "2":
-                user = edit_profile(user, "admin")
-            case "3":
-                change_password(user, "admin")
-            case "4":
-                view_activity_log(user["Username"])
-            case "5":
-                return user
-            case _:
-                print("Invalid option.")
+        try:
+            match choice:
+                case "1":
+                    view_profile(user)
+                case "2":
+                    user = edit_profile(user, "admin")
+                case "3":
+                    change_password(user, "admin")
+                case "4":
+                    view_activity_log(user["Username"])
+                case "5":
+                    return user
+                case _:
+                    print("Invalid option.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        pause()
 
 
 def admin_user_management_menu(user):
@@ -508,24 +593,28 @@ def admin_user_management_menu(user):
         print("6. Back")
         choice = input("Select an option: ").strip()
 
-        match choice:
-            case "1":
-                elevate_to_admin(user)
-            case "2":
-                create_admin_directly(user)
-            case "3":
-                list_users("adopter")
-            case "4":
-                list_users("admin")
-            case "5":
-                target = input("Username to update: ").strip()
-                target_role = input("Role (adopter/admin): ").strip().lower()
-                action = input("Activate or Deactivate? (a/d): ").strip().lower()
-                set_account_status(target, target_role, "active" if action == "a" else "inactive")
-            case "6":
-                return
-            case _:
-                print("Invalid option.")
+        try:
+            match choice:
+                case "1":
+                    elevate_to_admin(user)
+                case "2":
+                    create_admin_directly(user)
+                case "3":
+                    list_users("adopter")
+                case "4":
+                    list_users("admin")
+                case "5":
+                    target = get_non_empty_input("Username to update: ")
+                    target_role = input("Role (adopter/admin): ").strip().lower()
+                    action = input("Activate or Deactivate? (a/d): ").strip().lower()
+                    set_account_status(target, target_role, "active" if action == "a" else "inactive")
+                case "6":
+                    return
+                case _:
+                    print("Invalid option.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        pause()
 
 
 def admin_pets_menu(user):
@@ -538,16 +627,20 @@ def admin_pets_menu(user):
         print("5. Back")
         choice = input("Select an option: ").strip()
 
-        match choice:
-            case "1":
-                pet_management_menu_admin(user)
-            case "2":
-                search_menu(user)
-            case "3":
-                admin_vaccination_dashboard(user)
-            case "4":
-                admin_adoption_dashboard(user)
-            case "5":
-                return
-            case _:
-                print("Invalid option.")
+        try:
+            match choice:
+                case "1":
+                    pet_management_menu_admin(user)
+                case "2":
+                    search_menu(user)
+                case "3":
+                    admin_vaccination_dashboard(user)
+                case "4":
+                    admin_adoption_dashboard(user)
+                case "5":
+                    return
+                case _:
+                    print("Invalid option.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        pause()

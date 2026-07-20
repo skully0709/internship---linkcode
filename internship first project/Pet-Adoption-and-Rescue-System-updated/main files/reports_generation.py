@@ -8,7 +8,7 @@ from datetime import date
 from tabulate import tabulate
 import matplotlib.pyplot as plt
 
-from db_functions import get_connection
+from db_functions import get_connection, AVAILABLE_SQL
 
 
 # ---------------------------------------------------------------------
@@ -57,9 +57,9 @@ def view_transactions():
 def available_pets_report():
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("""
+    cur.execute(f"""
         SELECT Pet_ID, Name, Species, Breed, Age, Health_Status
-        FROM Pets WHERE Adoption_Status = 'Available'
+        FROM Pets WHERE {AVAILABLE_SQL}
     """)
     rows = cur.fetchall()
     conn.close()

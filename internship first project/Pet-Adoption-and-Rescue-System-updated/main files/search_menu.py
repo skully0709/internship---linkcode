@@ -5,7 +5,7 @@ Owner: Kadambari
 """
 
 from tabulate import tabulate
-from db_functions import get_connection
+from db_functions import get_connection, AVAILABLE_SQL
 
 
 def search_menu(user=None):
@@ -27,9 +27,9 @@ def search_menu(user=None):
 
         match choice:
             case "1":
-                cur.execute("""
+                cur.execute(f"""
                     SELECT Pet_ID, Name, Species, Breed, Age, Health_Status
-                    FROM Pets WHERE Adoption_Status = 'Available'
+                    FROM Pets WHERE {AVAILABLE_SQL}
                 """)
                 data = cur.fetchall()
                 if data:
@@ -39,9 +39,9 @@ def search_menu(user=None):
 
             case "2":
                 name = input("Enter Pet Name : ")
-                cur.execute("""
+                cur.execute(f"""
                     SELECT Pet_ID, Name, Species, Breed, Age, Health_Status
-                    FROM Pets WHERE Name LIKE ? AND Adoption_Status = 'Available'
+                    FROM Pets WHERE Name LIKE ? AND {AVAILABLE_SQL}
                 """, ('%' + name + '%',))
                 data = cur.fetchall()
                 if data:
@@ -51,9 +51,9 @@ def search_menu(user=None):
 
             case "3":
                 breed = input("Enter Breed : ")
-                cur.execute("""
+                cur.execute(f"""
                     SELECT Pet_ID, Name, Species, Breed, Age, Health_Status
-                    FROM Pets WHERE Breed LIKE ? AND Adoption_Status = 'Available'
+                    FROM Pets WHERE Breed LIKE ? AND {AVAILABLE_SQL}
                 """, ('%' + breed + '%',))
                 data = cur.fetchall()
                 if data:
@@ -63,9 +63,9 @@ def search_menu(user=None):
 
             case "4":
                 species = input("Enter Species : ")
-                cur.execute("""
+                cur.execute(f"""
                     SELECT Pet_ID, Name, Species, Breed, Age, Health_Status
-                    FROM Pets WHERE Species = ? AND Adoption_Status = 'Available'
+                    FROM Pets WHERE Species = ? AND {AVAILABLE_SQL}
                 """, (species,))
                 data = cur.fetchall()
                 if data:
@@ -75,9 +75,9 @@ def search_menu(user=None):
 
             case "5":
                 age = int(input("Enter Age : "))
-                cur.execute("""
+                cur.execute(f"""
                     SELECT Pet_ID, Name, Species, Breed, Age, Health_Status
-                    FROM Pets WHERE Age = ? AND Adoption_Status = 'Available'
+                    FROM Pets WHERE Age = ? AND {AVAILABLE_SQL}
                 """, (age,))
                 data = cur.fetchall()
                 if data:
@@ -87,9 +87,9 @@ def search_menu(user=None):
 
             case "6":
                 health = input("Enter Health Status : ")
-                cur.execute("""
+                cur.execute(f"""
                     SELECT Pet_ID, Name, Species, Breed, Age, Health_Status
-                    FROM Pets WHERE Health_Status = ? AND Adoption_Status = 'Available'
+                    FROM Pets WHERE Health_Status = ? AND {AVAILABLE_SQL}
                 """, (health,))
                 data = cur.fetchall()
                 if data:
@@ -99,11 +99,11 @@ def search_menu(user=None):
 
             case "7":
                 location = input("Enter Location : ")
-                cur.execute("""
+                cur.execute(f"""
                     SELECT Pets.Pet_ID, Pets.Name, Pets.Species, Pets.Breed, Pets.Age,
                            Shelters.Shelter_Name, Shelters.Location
                     FROM Pets JOIN Shelters ON Pets.Shelter_ID = Shelters.Shelter_ID
-                    WHERE Shelters.Location LIKE ? AND Pets.Adoption_Status = 'Available'
+                    WHERE Shelters.Location LIKE ? AND {AVAILABLE_SQL}
                 """, ('%' + location + '%',))
                 data = cur.fetchall()
                 if data:

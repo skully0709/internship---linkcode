@@ -1,0 +1,14 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+env/
+
+# Gradio / OS junk
+*.log
+.DS_Store
+Thumbs.db

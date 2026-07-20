@@ -9,7 +9,7 @@ Owner: Nishtha
 from datetime import date
 from tabulate import tabulate
 
-from db_functions import get_connection, log_activity
+from db_functions import get_connection, log_activity, is_medically_ineligible, AVAILABLE_SQL
 
 # Set once when a dashboard opens; every other function reads from this.
 current_user = None
@@ -22,7 +22,7 @@ current_user = None
 def pet_exists(pet_id):
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT Pet_ID, Name, Adoption_Status FROM Pets WHERE Pet_ID = ?", (pet_id,))
+    cur.execute("SELECT Pet_ID, Name, Adoption_Status, Health_Status FROM Pets WHERE Pet_ID = ?", (pet_id,))
     row = cur.fetchone()
     conn.close()
     return row
@@ -31,7 +31,7 @@ def pet_exists(pet_id):
 def list_available_pets():
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT Pet_ID, Name, Species, Breed, Adoption_Status FROM Pets WHERE Adoption_Status = 'Available'")
+    cur.execute(f"SELECT Pet_ID, Name, Species, Breed, Adoption_Status FROM Pets WHERE {AVAILABLE_SQL}")
     rows = cur.fetchall()
     conn.close()
 
@@ -85,6 +85,19 @@ def has_active_transaction(pet_id):
     return row is not None
 
 
+def _reentry_status(pet_id):
+    """Status to give a pet that's coming back into the pool (return, reject).
+    Available unless it's been flagged medically ineligible in the meantime."""
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT Health_Status FROM Pets WHERE Pet_ID = ?", (pet_id,))
+    row = cur.fetchone()
+    conn.close()
+    if row and is_medically_ineligible(row[0]):
+        return "Unavailable"
+    return "Available"
+
+
 # ---------------------------------------------------------------------
 # 5.1 / 5.2  ADOPTER SIDE - REQUEST ADOPTION
 # ---------------------------------------------------------------------
@@ -101,6 +114,8 @@ def request_adoption():
     # 5.2.1 Availability Check
     if pet[2] != "Available":
         print(f"{pet[1]} is not currently available (status: {pet[2]})."); return
+    if is_medically_ineligible(pet[3]):
+        print(f"{pet[1]} is medically ineligible for adoption."); return
 
     conn = get_connection()
     cur = conn.cursor()
@@ -168,6 +183,7 @@ def return_my_pet():
 
     pet_id = match[1]
     return_date = str(date.today())
+    new_status = _reentry_status(pet_id)
 
     conn = get_connection()
     cur = conn.cursor()
@@ -176,12 +192,15 @@ def return_my_pet():
         "UPDATE Adoption_Transactions SET Return_Date = ? WHERE Transaction_ID = ?",
         (return_date, transaction_id),
     )
-    cur.execute("UPDATE Pets SET Adoption_Status = 'Available' WHERE Pet_ID = ?", (pet_id,))
+    cur.execute("UPDATE Pets SET Adoption_Status = ? WHERE Pet_ID = ?", (new_status, pet_id))
     conn.commit()
     conn.close()
 
     log_activity(current_user["Username"], "adopter", f"Returned Pet ID {pet_id}")
-    print(f"{match[2]} has been returned and is now marked Available again.")
+    if new_status == "Available":
+        print(f"{match[2]} has been returned and is now marked Available again.")
+    else:
+        print(f"{match[2]} has been returned. It is currently flagged medically ineligible, so it's marked Unavailable rather than Available.")
 
 
 # ---------------------------------------------------------------------
@@ -207,6 +226,8 @@ def process_adoption():
     # 5.2.1 Availability Check (must still be Pending, not already grabbed)
     if pet[2] != "Pending":
         print(f"{pet[1]} is not awaiting approval (status: {pet[2]})."); return
+    if is_medically_ineligible(pet[3]):
+        print(f"{pet[1]} was flagged medically ineligible after this request was made and cannot be finalized."); return
 
     # 5.2.2 Duplicate Check
     if has_active_transaction(pet_id):
@@ -275,15 +296,19 @@ def reject_adoption_request():
 
     conn = get_connection()
     cur = conn.cursor()
+    new_status = _reentry_status(pet_id)
     cur.execute(
-        "UPDATE Pets SET Adoption_Status = 'Available', Requested_By = NULL WHERE Pet_ID = ?",
-        (pet_id,),
+        "UPDATE Pets SET Adoption_Status = ?, Requested_By = NULL WHERE Pet_ID = ?",
+        (new_status, pet_id),
     )
     conn.commit()
     conn.close()
 
     log_activity(current_user["Username"], "admin", f"Rejected adoption request for Pet ID {pet_id}")
-    print(f"Request for {pet[1]} has been rejected. The pet is Available again.")
+    if new_status == "Available":
+        print(f"Request for {pet[1]} has been rejected. The pet is Available again.")
+    else:
+        print(f"Request for {pet[1]} has been rejected. The pet is currently flagged medically ineligible, so it's marked Unavailable.")
 
 
 # ---------------------------------------------------------------------
@@ -320,17 +345,21 @@ def process_return():
         print("No active adoption transaction found for this pet."); conn.close(); return
 
     return_date = str(date.today())
+    new_status = _reentry_status(pet_id)
     # 5.3.2 History Tracking: fill in Return_Date, never delete the row
     cur.execute(
         "UPDATE Adoption_Transactions SET Return_Date = ? WHERE Transaction_ID = ?",
         (return_date, active[0]),
     )
-    cur.execute("UPDATE Pets SET Adoption_Status = 'Available' WHERE Pet_ID = ?", (pet_id,))
+    cur.execute("UPDATE Pets SET Adoption_Status = ? WHERE Pet_ID = ?", (new_status, pet_id))
     conn.commit()
     conn.close()
 
     log_activity(current_user["Username"], "admin", f"Processed return of Pet ID {pet_id}")
-    print(f"{pet[1]} has been marked as returned and is now Available again.")
+    if new_status == "Available":
+        print(f"{pet[1]} has been marked as returned and is now Available again.")
+    else:
+        print(f"{pet[1]} has been marked as returned. It is currently flagged medically ineligible, so it's marked Unavailable rather than Available.")
 
 
 def view_all_transactions():
