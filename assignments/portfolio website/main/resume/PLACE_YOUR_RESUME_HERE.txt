@@ -1,0 +1,20 @@
+Drop your resume PDF in this folder and name it exactly:
+
+    Sarthak-Patani-Resume.pdf
+
+That's the filename every "Resume" link across the site already points
+to (nav bar on every page, the homepage hero button, and the Contact
+page resume card) — so once the file is here, all of those links work
+immediately. No HTML/CSS edits needed.
+
+If you'd rather use a different filename, search the .html files for
+"Sarthak-Patani-Resume.pdf" and replace it everywhere it appears (it's
+also flagged with an HTML comment right above each link).
+
+Why a PDF next to the site (instead of e.g. Google Drive)?
+- It downloads/opens instantly with no login or "request access" step
+- The URL is permanent and fully shareable: once this site is hosted,
+  people can link straight to yoursite.com/resume/Sarthak-Patani-Resume.pdf
+  from LinkedIn, email, a job application, anywhere — and it'll always
+  open the current version, since re-uploading a new PDF with the same
+  filename here simply replaces it.

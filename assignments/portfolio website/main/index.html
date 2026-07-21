@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarthak Patani — Design & Engineering Portfolio</title>
+<meta name="description" content="Sarthak Patani — Computer Science student and UI/UX designer working at the intersection of interface design and low-level engineering.">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<div class="loader"><div class="loader-mark"><span>SP</span><div class="loader-bar"></div></div></div>
+<div class="scroll-progress"></div>
+<div class="ambient-glow"></div>
+
+<a id="top"></a>
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><span class="dot"></span>Sarthak Patani</a>
+    <input type="checkbox" id="navToggle" class="nav-check">
+    <label for="navToggle" class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="achievements.html">Achievements</a></li>
+      <li><a href="certificates.html">Certificates</a></li>
+      <!-- RESUME LINK — put your PDF at resume/Sarthak-Patani-Resume.pdf (see resume/PLACE_YOUR_RESUME_HERE.txt) -->
+      <li><a href="resume/Sarthak-Patani-Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-kicker mono">// COMPUTER SCIENCE · UI/UX DESIGN</div>
+      <h1><span class="line">Interfaces people</span><span class="line">love. Systems that</span><span class="line grad-text">actually run.</span></h1>
+      <div class="hero-role">
+        <span class="type-word">Figma auto-layouts</span>
+        <span class="type-word">8086 Assembly Language</span>
+        <span class="type-word">Java UDP sockets</span>
+        <span class="type-word">pixel-perfect handoffs</span>
+        <span class="type-word">research-driven reports</span>
+      </div>
+      <p class="hero-desc">I'm Sarthak — a Computer Science student who moves fluently between designing intuitive app flows and writing the low-level code that makes systems tick. Detail-obsessed on both sides of the screen.</p>
+      <div class="hero-actions">
+        <a href="projects.html#design" class="btn btn-primary">Design Portfolio</a>
+        <a href="projects.html#technical" class="btn btn-ghost">Technical Projects</a>
+        <!-- RESUME BUTTON — put your PDF at resume/Sarthak-Patani-Resume.pdf (see resume/PLACE_YOUR_RESUME_HERE.txt) -->
+        <a href="resume/Sarthak-Patani-Resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">Download Resume</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="bridge-scene">
+        <span class="scene-hint">design ⇄ code</span>
+        <div class="bridge-layer design"></div>
+        <div class="bridge-layer circuit">
+          <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#00D9B5" stroke-width="1.4" opacity="0.85">
+              <path d="M40 80 H160 V40 H320 V120 H440"/>
+              <path d="M40 180 H120 V220 H240 V160 H400 V240"/>
+              <path d="M40 320 H200 V360 H300 V300 H440"/>
+              <path d="M60 400 H180 V440"/>
+              <path d="M300 400 V440 H420"/>
+              <path d="M240 40 V0"/>
+              <path d="M240 240 V300"/>
+            </g>
+            <g fill="#00D9B5">
+              <circle cx="40" cy="80" r="4"/><circle cx="160" cy="40" r="4"/><circle cx="320" cy="120" r="4"/><circle cx="440" cy="120" r="4"/>
+              <circle cx="40" cy="180" r="4"/><circle cx="120" cy="220" r="4"/><circle cx="240" cy="160" r="4"/><circle cx="400" cy="240" r="4"/>
+              <circle cx="40" cy="320" r="4"/><circle cx="200" cy="360" r="4"/><circle cx="300" cy="300" r="4"/><circle cx="440" cy="300" r="4"/>
+              <circle cx="60" cy="400" r="4"/><circle cx="180" cy="440" r="4"/><circle cx="300" cy="440" r="4"/><circle cx="420" cy="440" r="4"/>
+            </g>
+            <g fill="#8B5CF6" opacity="0.9" font-family="IBM Plex Mono, monospace" font-size="9">
+              <text x="45" y="70">B0 08</text>
+              <text x="45" y="170">MOV AX</text>
+              <text x="205" y="215">CD 21</text>
+              <text x="45" y="310">INT 21H</text>
+              <text x="65" y="395">JMP</text>
+            </g>
+          </svg>
+        </div>
+        <div class="scene-label"><span>design.fig</span><span>boot.asm</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="hero-stats reveal">
+    <div class="stat-cell"><div class="stat-num">9.2</div><div class="stat-label">CGPA</div></div>
+    <div class="stat-cell"><div class="stat-num">2×</div><div class="stat-label">College Topper</div></div>
+    <div class="stat-cell"><div class="stat-num">5+</div><div class="stat-label">Projects Shipped</div></div>
+    <div class="stat-cell"><div class="stat-num">8+</div><div class="stat-label">Certifications</div></div>
+  </div>
+</div>
+
+<!-- ===== NAVIGATE SECTION ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Explore</div>
+      <h2>Two ways into the work</h2>
+      <p>Every project here sits somewhere between an interface and a system. Pick a lens, or wander freely.</p>
+    </div>
+    <div class="strip-grid">
+      <a href="projects.html" class="card strip-card reveal reveal-delay-1">
+        <div class="strip-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></div>
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <h3>Projects</h3>
+        <p>Case studies spanning UI/UX, low-level programming, game dev and research.</p>
+      </a>
+      <a href="skills.html" class="card strip-card reveal reveal-delay-2">
+        <div class="strip-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></div>
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Skills</h3>
+        <p>Design tools, programming languages, and research methods — rated honestly.</p>
+      </a>
+      <a href="achievements.html" class="card strip-card reveal reveal-delay-3">
+        <div class="strip-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></div>
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg></div>
+        <h3>Achievements</h3>
+        <p>Topper standings, hackathon placements, and competition wins.</p>
+      </a>
+      <a href="about.html" class="card strip-card reveal reveal-delay-4">
+        <div class="strip-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></div>
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+        <h3>About</h3>
+        <p>Background, philosophy, and how I like to work.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED PROJECTS TEASER ===== -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Selected Work</div>
+      <h2>A few things I'm proud of</h2>
+    </div>
+    <div class="project-grid">
+      <div class="card project-card reveal reveal-delay-1">
+        <div class="project-thumb">
+          <img src="img/project-maid-app.jpg" alt="Maid-booking app UI case study" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>img/project-maid-app.jpg</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">UI/UX Case Study</div>
+          <h3>Maid-Booking App</h3>
+          <p>End-to-end auto-layout flows for a service-booking mobile app, from onboarding to live tracking.</p>
+          <div class="project-tags"><span class="tag">Figma</span><span class="tag">Auto-layout</span><span class="tag">Mobile UX</span></div>
+          <div class="project-links"><a href="projects.html">View case study <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a></div>
+        </div>
+      </div>
+      <div class="card project-card reveal reveal-delay-2">
+        <div class="project-thumb">
+          <img src="img/project-assembly.jpg" alt="8086 Assembly and Java UDP sockets project" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span>img/project-assembly.jpg</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Low-Level Programming</div>
+          <h3>Assembly &amp; Socket Programming</h3>
+          <p>8086 Assembly routines and a Java UDP client-server pair — systems programming, close to the metal.</p>
+          <div class="project-tags"><span class="tag">8086 Assembly</span><span class="tag">Java UDP</span></div>
+          <div class="project-links"><a href="projects.html">View case study <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BAND ===== -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="card reveal" style="padding:56px 48px; text-align:center; background:linear-gradient(160deg, var(--panel), var(--ink-soft));">
+      <h2 style="font-size:clamp(24px,3.4vw,36px); margin-bottom:16px;">Have a project — design, systems, or both?</h2>
+      <p style="color:var(--slate); max-width:480px; margin:0 auto 28px;">I like problems that don't fit neatly into one box. Let's talk about yours.</p>
+      <a href="contact.html" class="btn btn-primary">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="skills.html">Skills</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="certificates.html">Certificates</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-note">© 2026 Sarthak Patani — Built with HTML &amp; CSS</div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+
+</body>
+</html>

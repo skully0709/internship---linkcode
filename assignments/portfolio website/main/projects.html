@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Sarthak Patani</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<div class="loader"><div class="loader-mark"><span>SP</span><div class="loader-bar"></div></div></div>
+<div class="scroll-progress"></div>
+<div class="ambient-glow"></div>
+
+<a id="top"></a>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><span class="dot"></span>Sarthak Patani</a>
+    <input type="checkbox" id="navToggle" class="nav-check">
+    <label for="navToggle" class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="achievements.html">Achievements</a></li>
+      <li><a href="certificates.html">Certificates</a></li>
+      <!-- RESUME LINK — put your PDF at resume/Sarthak-Patani-Resume.pdf (see resume/PLACE_YOUR_RESUME_HERE.txt) -->
+      <li><a href="resume/Sarthak-Patani-Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="container">
+    <div class="eyebrow reveal">Projects &amp; Case Studies</div>
+    <h1 class="reveal reveal-delay-1">Design work and <span class="grad-text">technical builds</span>, side by side.</h1>
+    <p class="lead reveal reveal-delay-2">From Figma flows to socket programming — filter by the kind of problem each project solves.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:64px;">
+  <div class="container">
+    <input type="radio" name="projfilter" id="filter-all" class="tab-radio" checked>
+    <input type="radio" name="projfilter" id="filter-design" class="tab-radio">
+    <input type="radio" name="projfilter" id="filter-technical" class="tab-radio">
+    <input type="radio" name="projfilter" id="filter-game" class="tab-radio">
+    <input type="radio" name="projfilter" id="filter-research" class="tab-radio">
+    <input type="radio" name="projfilter" id="filter-web" class="tab-radio">
+
+    <div class="filter-row reveal">
+      <label for="filter-all" class="filter-pill">All</label>
+      <label for="filter-design" class="filter-pill">Design</label>
+      <label for="filter-technical" class="filter-pill">Technical</label>
+      <label for="filter-game" class="filter-pill">Game Dev</label>
+      <label for="filter-research" class="filter-pill">Research</label>
+      <label for="filter-web" class="filter-pill">Web</label>
+    </div>
+
+    <div class="project-grid" id="projGrid">
+
+      <!-- Maid Booking App -->
+      <div class="card project-card reveal" data-cat="design" id="design">
+        <div class="project-thumb">
+          <img src="img/project-maid-app.jpg" alt="Maid booking app UI" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span>img/project-maid-app.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">UI/UX Case Study</div>
+          <h3>Maid-Booking App</h3>
+          <p>A full service-booking mobile flow — search, schedule, live tracking, and payment — built with Figma auto-layout for effortless responsive scaling.</p>
+          <div class="project-tags"><span class="tag">Figma</span><span class="tag">Auto-layout</span><span class="tag">Mobile UX</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg> Case Study</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assembly / UDP -->
+      <div class="card project-card reveal reveal-delay-1" data-cat="technical" id="technical">
+        <div class="project-thumb">
+          <img src="img/project-assembly.jpg" alt="8086 Assembly and Java UDP project" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>img/project-assembly.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Low-Level Programming</div>
+          <h3>Assembly &amp; Socket Programming</h3>
+          <p>8086 Assembly routines for register-level operations, paired with a Java UDP client-server implementation for connectionless network communication.</p>
+          <div class="project-tags"><span class="tag">8086 Assembly</span><span class="tag">Java UDP</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> Source</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platformer game -->
+      <div class="card project-card reveal reveal-delay-2" data-cat="game">
+        <div class="project-thumb">
+          <img src="img/project-platformer.jpg" alt="2D memory platformer game" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4"/><circle cx="16" cy="10" r="1"/><circle cx="18" cy="13" r="1"/></svg><span>img/project-platformer.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Rapid Prototype</div>
+          <h3>Digital Memory Platformer</h3>
+          <p>A 2D platformer built with drag-and-drop game engines inside a strict 6-hour development window — designed, built and playable same-day.</p>
+          <div class="project-tags"><span class="tag">Construct 3</span><span class="tag">Game Design</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Research report -->
+      <div class="card project-card reveal reveal-delay-3" data-cat="research">
+        <div class="project-thumb">
+          <img src="img/project-research.jpg" alt="Panchayati Raj decentralization research report" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><span>img/project-research.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Academic Research</div>
+          <h3>Decentralization &amp; Panchayati Raj</h3>
+          <p>Months of literature survey on Indian decentralization, formalized into an SLA-standard report and delivered as a faculty presentation.</p>
+          <div class="project-tags"><span class="tag">Data Analysis</span><span class="tag">SLA Reporting</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg> Read Report</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vintage bookstore -->
+      <div class="card project-card reveal" data-cat="web">
+        <div class="project-thumb">
+          <img src="img/project-bookstore.jpg" alt="Vintage bookstore website" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><span>img/project-bookstore.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Web Development</div>
+          <h3>Vintage Bookstore Website</h3>
+          <p>Full storefront with book catalog, wishlist, cart, search and category browsing — fully responsive front to back.</p>
+          <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg> Live Site</a>
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATM simulator -->
+      <div class="card project-card reveal reveal-delay-1" data-cat="technical">
+        <div class="project-thumb">
+          <img src="img/project-atm.jpg" alt="ATM simulator in C++" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><span>img/project-atm.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">C++ Console App</div>
+          <h3>ATM Simulator</h3>
+          <p>Console-based ATM with PIN verification, balance checks, deposits and withdrawals — core logic modeled after real transaction flows.</p>
+          <div class="project-tags"><span class="tag">C++</span></div>
+          <div class="project-links"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> Source</a></div>
+        </div>
+      </div>
+
+      <!-- Employee tenure calculator -->
+      <div class="card project-card reveal reveal-delay-2" data-cat="technical">
+        <div class="project-thumb">
+          <img src="img/project-tenure.jpg" alt="Employee tenure calculator in C" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>img/project-tenure.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">C Programming</div>
+          <h3>Employee Tenure Calculator</h3>
+          <p>A small utility that calculates exact employee experience duration from joining date to current date.</p>
+          <div class="project-tags"><span class="tag">C</span></div>
+          <div class="project-links"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> Source</a></div>
+        </div>
+      </div>
+
+      <!-- Library management -->
+      <div class="card project-card reveal reveal-delay-3" data-cat="technical">
+        <div class="project-thumb">
+          <img src="img/project-library.jpg" alt="Library management system" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span>img/project-library.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Database Project</div>
+          <h3>Library Management System</h3>
+          <p>Database-backed system handling book records, student records, and issue/return workflows.</p>
+          <div class="project-tags"><span class="tag">SQL</span><span class="tag">DBMS</span></div>
+          <div class="project-links"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> Source</a></div>
+        </div>
+      </div>
+
+      <!-- Quantum AI chatbot UI -->
+      <div class="card project-card reveal" data-cat="design">
+        <div class="project-thumb">
+          <img src="img/project-chatbot.jpg" alt="Quantum AI chatbot UI in Figma" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg><span>img/project-chatbot.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">UI Design — 45 Screens</div>
+          <h3>Quantum AI Chatbot UI</h3>
+          <p>A modern, glassmorphic chatbot interface designed entirely in Figma across 45 interactive screens.</p>
+          <div class="project-tags"><span class="tag">Figma</span><span class="tag">Glassmorphism</span></div>
+          <div class="project-links"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg> Open Design</a></div>
+        </div>
+      </div>
+
+      <!-- SBI Gamification -->
+      <div class="card project-card reveal reveal-delay-1" data-cat="design">
+        <div class="project-thumb">
+          <img src="img/project-sbi.jpg" alt="SBI gamification project" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg><span>img/project-sbi.jpg</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Gamified Prototype</div>
+          <h3>SBI Gamification Project</h3>
+          <p>An interactive financial-literacy quiz paired with a space-shooter asteroid game — banking education made playable.</p>
+          <div class="project-tags"><span class="tag">Figma Prototype</span><span class="tag">Game Design</span></div>
+          <div class="project-links"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg> Preview</a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="skills.html">Skills</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="certificates.html">Certificates</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-note">© 2026 Sarthak Patani — Built with HTML &amp; CSS</div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+
+</body>
+</html>
