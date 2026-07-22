@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-rows: 80px 1fr 80px;
+        gap: 3px;
+        color: white;
+      }
+      header {
+        background-color: red;
+        grid-column: 1/4;
+      }
+      nav {
+        background-color: blue;
+        grid-column: 1/2;
+      }
+      main {
+        background-color: green;
+        grid-column: 2/3;
+      }
+      aside {
+        background-color: lime;
+        grid-column: 3/4;
+      }
+      footer {
+  background-color: darkslategray; 
+  grid-column: 1/4;
+}
+    </style>
+  </head>
+  <body>
+    <!-- exp: div.container>div.*count -->
+    <div class="container">
+      <header>header</header>
+      <nav>nav</nav>
+      <main>main</main>
+      <aside>sidebar</aside>
+      <footer>footer</footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexashop</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial,sans-serif;
+    }
+
+    header{
+        height:90px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:0 70px;
+        border-bottom:1px solid #ddd;
+    }
+
+    .logo img{
+        width:180px;
+    }
+
+    nav ul{
+        display:flex;
+        list-style:none;
+        gap:30px;
+    }
+
+    nav ul li a{
+        text-decoration:none;
+        color:#222;
+        font-weight:bold;
+    }
+
+    .container{
+        width:90%;
+        margin:40px auto;
+        display:grid;
+        grid-template-columns:2fr 1fr 1fr;
+        grid-template-rows:300px 300px;
+        gap:20px;
+    }
+
+    .box-1{
+        grid-column:1;
+        grid-row:1 / 3;
+    }
+
+    .box-2{
+        grid-column:2;
+        grid-row:1;
+    }
+
+    .box-3{
+        grid-column:3;
+        grid-row:1;
+    }
+
+    .box-4{
+        grid-column:2;
+        grid-row:2;
+    }
+
+    .box-5{
+        grid-column:3;
+        grid-row:2;
+    }
+
+    .box-1,
+    .box-2,
+    .box-3,
+    .box-4,
+    .box-5{
+        position: relative;
+    }
+
+    .container img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .overlay{
+        inset:0;
+        background:rgba(0,0,0,0.35);
+    }
+
+    .left-text{
+        position:absolute;
+        top:50%;
+        left:50px;
+        transform:translateY(-50%);
+        color:white;
+    }
+
+    .left-text h1{
+        font-size:55px;
+        margin-bottom:20px;
+    }
+
+    .left-text p{
+        margin-bottom:25px;
+    }
+
+    .left-text button{
+        padding:12px 25px;
+        border:2px solid white;
+        background:transparent;
+        color:white;
+        cursor:pointer;
+    }
+
+    .text{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        text-align:center;
+        color:white;
+    }
+
+    .text h2{
+        font-size:30px;
+        margin-bottom:10px;
+    }
+</style>
+
+</head>
+<body>
+
+<header>
+
+    <div class="logo">
+        <img src="logo2.png">
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Men's</a></li>
+            <li><a href="#">Women's</a></li>
+            <li><a href="#">Kid's</a></li>
+            <li><a href="#">Pages <i class="fa-solid fa-angle-down"></i></a></li>
+            <li><a href="#">Features <i class="fa-solid fa-angle-down"></i></a></li>
+            <li><a href="#">Explore</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<div class="container">
+
+    <div class="box-1">
+        <img src="img1.jpg">
+        <div class="overlay"></div>
+
+        <div class="left-text">
+            <h1>We Are Hexashop</h1>
+            <p>Awesome, clean & creative HTML5 Template</p>
+            <button>Purchase Now!</button>
+        </div>
+    </div>
+
+    <div class="box-2">
+        <img src="img2.jpg">
+        <div class="overlay"></div>
+
+        <div class="text">
+            <h2>Women</h2>
+            <p>Best Clothes For Women</p>
+        </div>
+    </div>
+
+    <div class="box-3">
+        <img src="img3.jpg">
+        <div class="overlay"></div>
+
+        <div class="text">
+            <h2>Men</h2>
+            <p>Best Clothes For Men</p>
+        </div>
+    </div>
+
+    <div class="box-4">
+        <img src="img4.jpg">
+        <div class="overlay"></div>
+
+        <div class="text">
+            <h2>Kids</h2>
+            <p>Best Clothes For Kids</p>
+        </div>
+    </div>
+
+    <div class="box-5">
+        <img src="img5.jpg">
+        <div class="overlay"></div>
+
+        <div class="text">
+            <h2>Accessories</h2>
+            <p>Best Trend Accessories</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

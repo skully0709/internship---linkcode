@@ -8,3 +8,9 @@ def home(request):
 
 def index(request):
     return HttpResponse("<h1>Index Page</h1><p>This is the index page of app1.</p>")
+
+def contact(request):
+    return render(request,"app1/contact.html")
+
+def about(request):
+    return render(request,"app1/about.html")

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Board</title>
+
+  <style>
+   
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #444;
+    }
+
+    .container {
+      width: 640px;
+      height: 640px;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      border: 5px solid black;
+    }
+
+    .div1,
+    .div2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
+      font-weight: bold;
+     
+    }
+
+    .div1 {
+      background-color: #ebecd0;
+    }
+
+    .div2 {
+      background-color: #779556;
+    }
+
+    .div1 img,
+    .div2 img {
+      width: 80%;
+      height: 80%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Row 1 -->
+    <div class="div1"><img src="images/black/bR.svg" alt="black rook"></div>
+    <div class="div2"><img src="images/black/bN.svg" alt="black knight"></div>
+    <div class="div1"><img src="images/black/bB.svg" alt="black bishop"></div>
+    <div class="div2"><img src="images/black/bQ.svg" alt="black queen"></div>
+    <div class="div1"><img src="images/black/bK.svg" alt="black king"></div>
+    <div class="div2"><img src="images/black/bB.svg" alt="black bishop"></div>
+    <div class="div1"><img src="images/black/bN.svg" alt="black knight"></div>
+    <div class="div2"><img src="images/black/bR.svg" alt="black rook"></div>
+
+    <!-- Row 2 -->
+    <div class="div2"><img src="images/black/bP.svg" alt="black pawn"></div>
+    <div class="div1"><img src="images/black/bP.svg" alt="black pawn"></div>
+    <div class="div2"><img src="images/black/bP.svg" alt="black pawn"></div>
+    <div class="div1"><img src="images/black/bP.svg" alt="black pawn"></div>
+    <div class="div2"><img src="images/black/bP.svg" alt="black pawn"></div>
+    <div class="div1"><img src="images/black/bP.svg" alt="black pawn"></div>
+    <div class="div2"><img src="images/black/bP.svg" alt="black pawn"></div>
+    <div class="div1"><img src="images/black/bP.svg" alt="black pawn"></div>
+
+    <!-- Row 3 -->
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+
+    <!-- Row 4 -->
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+
+    <!-- Row 5 -->
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+
+    <!-- Row 6 -->
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div1"></div>
+
+    <!-- Row 7 -->
+    <div class="div1"><img src="images/white/wP.svg" alt="white pawn"></div>
+    <div class="div2"><img src="images/white/wP.svg" alt="white pawn"></div>
+    <div class="div1"><img src="images/white/wP.svg" alt="white pawn"></div>
+    <div class="div2"><img src="images/white/wP.svg" alt="white pawn"></div>
+    <div class="div1"><img src="images/white/wP.svg" alt="white pawn"></div>
+    <div class="div2"><img src="images/white/wP.svg" alt="white pawn"></div>
+    <div class="div1"><img src="images/white/wP.svg" alt="white pawn"></div>
+    <div class="div2"><img src="images/white/wP.svg" alt="white pawn"></div>
+
+    <!-- Row 8 -->
+    <div class="div2"><img src="images/white/wR.svg" alt="white rook"></div>
+    <div class="div1"><img src="images/white/wN.svg" alt="white knight"></div>
+    <div class="div2"><img src="images/white/wB.svg" alt="white bishop"></div>
+    <div class="div1"><img src="images/white/wQ.svg" alt="white queen"></div>
+    <div class="div2"><img src="images/white/wK.svg" alt="white king"></div>
+    <div class="div1"><img src="images/white/wB.svg" alt="white bishop"></div>
+    <div class="div2"><img src="images/white/wN.svg" alt="white knight"></div>
+    <div class="div1"><img src="images/white/wR.svg" alt="white rook"></div>
+
+  </div>
+
+</body>
+</html>
