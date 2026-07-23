@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saras Baug Gallery</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<h1>Saras Baug</h1>
+
+<div class="gallery">
+
+<img src="{% static 'images/saras1.png' %}">
+<img src="{% static 'images/saras2.png' %}">
+<img src="{% static 'images/saras3.png' %}">
+<img src="{% static 'images/saras4.png' %}">
+
+</div>
+
+<div class="location">
+
+<h2>📍 Exact Location</h2>
+
+<p>
+Saras Baug, Swargate, Pune, Maharashtra
+</p>
+<sbr>
+<a href="https://maps.google.com/?q=Saras+Baug+Pune" target="_blank">
+<button>View on Google Maps</button>
+</a>
+
+</div>
+
+<a href="{% url 'home' %}">
+<button class="back">Back to Home</button>
+</a>
+
+</body>
+</html>

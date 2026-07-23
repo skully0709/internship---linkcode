@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pune Famous Places Gallery</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>📸 Pune Famous Places Gallery</h1>
+    <p>Explore the Beauty and Heritage of Pune</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <img src="{% static 'images/dagdu1.png' %}">
+        <h2>Shreemant Dagdusheth Halwai Ganpati</h2>
+        <a href="{% url 'gallery1' %}">
+            <button>Explore</button>
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="{% static 'images/saras1.png' %}">
+        <h2>Saras Baug</h2>
+        <a href="{% url 'gallery2' %}">
+            <button>Explore</button>
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="{% static 'images/morya1.png' %}">
+        <h2>Morya Gosavi Temple</h2>
+        <a href="{% url 'gallery3' %}">
+            <button>Explore</button>
+        </a>
+    </div>
+
+</div>
+
+<footer>
+    Made with ❤️ using Django
+</footer>
+
+</body>
+</html>
